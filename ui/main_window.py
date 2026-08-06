@@ -7,10 +7,10 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSizePolicy,
     QSpacerItem,
+    QStackedWidget,
     QVBoxLayout,
     QWidget,
 )
-
 
 class MainWindow(QMainWindow):
     """Main window for the NeuroMyo Sync application."""
@@ -39,10 +39,46 @@ class MainWindow(QMainWindow):
         main_layout.setSpacing(0)
 
         self.sidebar = self.create_sidebar()
-        self.content_area = self.create_dashboard()
+        self.page_stack = QStackedWidget()
 
-        main_layout.addWidget(self.sidebar)
-        main_layout.addWidget(self.content_area, stretch=1)
+self.dashboard_page = self.create_dashboard()
+self.participant_page = self.create_placeholder_page(
+    "Participant Information",
+    "Enter and manage participant records.",
+)
+self.experiment_page = self.create_placeholder_page(
+    "Experiment Setup",
+    "Configure the study condition, duration, and channel settings.",
+)
+self.hardware_page = self.create_placeholder_page(
+    "Hardware Status",
+    "Monitor BLE, ADC, electrodes, battery, and system health.",
+)
+self.acquisition_page = self.create_placeholder_page(
+    "Live Acquisition",
+    "View and record synchronized EEG and EMG signals.",
+)
+self.results_page = self.create_placeholder_page(
+    "Results",
+    "Review saved sessions and export recorded data.",
+)
+self.settings_page = self.create_placeholder_page(
+    "Settings",
+    "Configure application and device preferences.",
+)
+
+self.page_stack.addWidget(self.dashboard_page)
+self.page_stack.addWidget(self.participant_page)
+self.page_stack.addWidget(self.experiment_page)
+self.page_stack.addWidget(self.hardware_page)
+self.page_stack.addWidget(self.acquisition_page)
+self.page_stack.addWidget(self.results_page)
+self.page_stack.addWidget(self.settings_page)
+
+main_layout.addWidget(self.sidebar)
+main_layout.addWidget(self.page_stack, stretch=1)
+
+self.connect_navigation()
 
     def create_sidebar(self) -> QFrame:
         """Create the left navigation panel."""
