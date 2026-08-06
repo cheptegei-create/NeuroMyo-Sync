@@ -550,3 +550,43 @@ self.connect_navigation()
             }
             """
         )
+def create_placeholder_page(
+    self,
+    title: str,
+    description: str,
+) -> QWidget:
+    """Create a temporary page used while the UI is being developed."""
+
+    page = QWidget()
+    page.setObjectName("contentPage")
+
+    layout = QVBoxLayout(page)
+    layout.setContentsMargins(36, 30, 36, 30)
+    layout.setSpacing(10)
+
+    heading = QLabel(title)
+    heading.setObjectName("pageHeading")
+
+    subtitle = QLabel(description)
+    subtitle.setObjectName("pageDescription")
+
+    placeholder = QFrame()
+    placeholder.setObjectName("panel")
+
+    placeholder_layout = QVBoxLayout(placeholder)
+    placeholder_layout.setContentsMargins(24, 24, 24, 24)
+
+    message = QLabel("This page will be developed next.")
+    message.setObjectName("emptyTitle")
+    message.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    placeholder_layout.addStretch()
+    placeholder_layout.addWidget(message)
+    placeholder_layout.addStretch()
+
+    layout.addWidget(heading)
+    layout.addWidget(subtitle)
+    layout.addSpacing(16)
+    layout.addWidget(placeholder, stretch=1)
+
+    return page
