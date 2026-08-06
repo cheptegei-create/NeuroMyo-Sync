@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+
 class MainWindow(QMainWindow):
     """Main window for the NeuroMyo Sync application."""
 
@@ -41,44 +42,44 @@ class MainWindow(QMainWindow):
         self.sidebar = self.create_sidebar()
         self.page_stack = QStackedWidget()
 
-self.dashboard_page = self.create_dashboard()
-self.participant_page = self.create_placeholder_page(
-    "Participant Information",
-    "Enter and manage participant records.",
-)
-self.experiment_page = self.create_placeholder_page(
-    "Experiment Setup",
-    "Configure the study condition, duration, and channel settings.",
-)
-self.hardware_page = self.create_placeholder_page(
-    "Hardware Status",
-    "Monitor BLE, ADC, electrodes, battery, and system health.",
-)
-self.acquisition_page = self.create_placeholder_page(
-    "Live Acquisition",
-    "View and record synchronized EEG and EMG signals.",
-)
-self.results_page = self.create_placeholder_page(
-    "Results",
-    "Review saved sessions and export recorded data.",
-)
-self.settings_page = self.create_placeholder_page(
-    "Settings",
-    "Configure application and device preferences.",
-)
+        self.dashboard_page = self.create_dashboard()
+        self.participant_page = self.create_placeholder_page(
+            "Participant Information",
+            "Enter and manage participant records.",
+        )
+        self.experiment_page = self.create_placeholder_page(
+            "Experiment Setup",
+            "Configure the study condition, duration, and channel settings.",
+        )
+        self.hardware_page = self.create_placeholder_page(
+            "Hardware Status",
+            "Monitor BLE, ADC, electrodes, battery, and system health.",
+        )
+        self.acquisition_page = self.create_placeholder_page(
+            "Live Acquisition",
+            "View and record synchronized EEG and EMG signals.",
+        )
+        self.results_page = self.create_placeholder_page(
+            "Results",
+            "Review saved sessions and export recorded data.",
+        )
+        self.settings_page = self.create_placeholder_page(
+            "Settings",
+            "Configure application and device preferences.",
+        )
 
-self.page_stack.addWidget(self.dashboard_page)
-self.page_stack.addWidget(self.participant_page)
-self.page_stack.addWidget(self.experiment_page)
-self.page_stack.addWidget(self.hardware_page)
-self.page_stack.addWidget(self.acquisition_page)
-self.page_stack.addWidget(self.results_page)
-self.page_stack.addWidget(self.settings_page)
+        self.page_stack.addWidget(self.dashboard_page)
+        self.page_stack.addWidget(self.participant_page)
+        self.page_stack.addWidget(self.experiment_page)
+        self.page_stack.addWidget(self.hardware_page)
+        self.page_stack.addWidget(self.acquisition_page)
+        self.page_stack.addWidget(self.results_page)
+        self.page_stack.addWidget(self.settings_page)
 
-main_layout.addWidget(self.sidebar)
-main_layout.addWidget(self.page_stack, stretch=1)
+        main_layout.addWidget(self.sidebar)
+        main_layout.addWidget(self.page_stack, stretch=1)
 
-self.connect_navigation()
+        self.connect_navigation()
 
     def create_sidebar(self) -> QFrame:
         """Create the left navigation panel."""
@@ -105,21 +106,11 @@ self.connect_navigation()
             "Dashboard",
             active=True,
         )
-        self.participant_button = self.create_navigation_button(
-            "Participant"
-        )
-        self.experiment_button = self.create_navigation_button(
-            "Experiment Setup"
-        )
-        self.hardware_button = self.create_navigation_button(
-            "Hardware"
-        )
-        self.recording_button = self.create_navigation_button(
-            "Live Acquisition"
-        )
-        self.results_button = self.create_navigation_button(
-            "Results"
-        )
+        self.participant_button = self.create_navigation_button("Participant")
+        self.experiment_button = self.create_navigation_button("Experiment Setup")
+        self.hardware_button = self.create_navigation_button("Hardware")
+        self.recording_button = self.create_navigation_button("Live Acquisition")
+        self.results_button = self.create_navigation_button("Results")
 
         layout.addWidget(self.dashboard_button)
         layout.addWidget(self.participant_button)
@@ -193,12 +184,8 @@ self.connect_navigation()
 
         self.new_trial_button = QPushButton("New Trial")
         self.new_trial_button.setObjectName("primaryButton")
-self.new_trial_button.setCursor(
-    Qt.CursorShape.PointingHandCursor
-)
-self.new_trial_button.setMinimumSize(130, 42)
-
-
+        self.new_trial_button.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.new_trial_button.setMinimumSize(130, 42)
 
         header_layout.addLayout(heading_container)
         header_layout.addStretch()
@@ -344,11 +331,11 @@ self.new_trial_button.setMinimumSize(130, 42)
         layout.addStretch()
 
         self.create_trial_button = QPushButton("Create New Trial")
-        start_button.setObjectName("primaryButton")
-        start_button.setCursor(Qt.CursorShape.PointingHandCursor)
-        start_button.setMinimumHeight(44)
+        self.create_trial_button.setObjectName("primaryButton")
+        self.create_trial_button.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.create_trial_button.setMinimumHeight(44)
 
-        layout.addWidget(start_button)
+        layout.addWidget(self.create_trial_button)
 
         return panel
 
@@ -369,8 +356,7 @@ self.new_trial_button.setMinimumSize(130, 42)
         empty_title.setObjectName("emptyTitle")
 
         empty_description = QLabel(
-            "The most recent participant and trial information "
-            "will appear here."
+            "The most recent participant and trial information " "will appear here."
         )
         empty_description.setObjectName("panelDescription")
         empty_description.setWordWrap(True)
@@ -398,8 +384,7 @@ self.new_trial_button.setMinimumSize(130, 42)
     def apply_styles(self) -> None:
         """Apply the application's initial Qt stylesheet."""
 
-        self.setStyleSheet(
-            """
+        self.setStyleSheet("""
             QMainWindow {
                 background-color: #f4f7fb;
             }
@@ -553,95 +538,77 @@ self.new_trial_button.setMinimumSize(130, 42)
             #secondaryButton:hover {
                 background-color: #f9fafb;
             }
-            """
-        )
-def create_placeholder_page(
-    self,
-    title: str,
-    description: str,
-) -> QWidget:
-    """Create a temporary page used while the UI is being developed."""
+            """)
 
-    page = QWidget()
-    page.setObjectName("contentPage")
+    def create_placeholder_page(
+        self,
+        title: str,
+        description: str,
+    ) -> QWidget:
+        """Create a temporary page used while the UI is being developed."""
 
-    layout = QVBoxLayout(page)
-    layout.setContentsMargins(36, 30, 36, 30)
-    layout.setSpacing(10)
+        page = QWidget()
+        page.setObjectName("contentPage")
 
-    heading = QLabel(title)
-    heading.setObjectName("pageHeading")
+        layout = QVBoxLayout(page)
+        layout.setContentsMargins(36, 30, 36, 30)
+        layout.setSpacing(10)
 
-    subtitle = QLabel(description)
-    subtitle.setObjectName("pageDescription")
+        heading = QLabel(title)
+        heading.setObjectName("pageHeading")
 
-    placeholder = QFrame()
-    placeholder.setObjectName("panel")
+        subtitle = QLabel(description)
+        subtitle.setObjectName("pageDescription")
 
-    placeholder_layout = QVBoxLayout(placeholder)
-    placeholder_layout.setContentsMargins(24, 24, 24, 24)
+        placeholder = QFrame()
+        placeholder.setObjectName("panel")
 
-    message = QLabel("This page will be developed next.")
-    message.setObjectName("emptyTitle")
-    message.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        placeholder_layout = QVBoxLayout(placeholder)
+        placeholder_layout.setContentsMargins(24, 24, 24, 24)
 
-    placeholder_layout.addStretch()
-    placeholder_layout.addWidget(message)
-    placeholder_layout.addStretch()
+        message = QLabel("This page will be developed next.")
+        message.setObjectName("emptyTitle")
+        message.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-    layout.addWidget(heading)
-    layout.addWidget(subtitle)
-    layout.addSpacing(16)
-    layout.addWidget(placeholder, stretch=1)
+        placeholder_layout.addStretch()
+        placeholder_layout.addWidget(message)
+        placeholder_layout.addStretch()
 
-    return page
+        layout.addWidget(heading)
+        layout.addWidget(subtitle)
+        layout.addSpacing(16)
+        layout.addWidget(placeholder, stretch=1)
 
-def connect_navigation(self) -> None:
-    """Connect sidebar buttons to the corresponding pages."""
+        return page
 
-    self.navigation_buttons = [
-        self.dashboard_button,
-        self.participant_button,
-        self.experiment_button,
-        self.hardware_button,
-        self.recording_button,
-        self.results_button,
-        self.settings_button,
-    ]
+    def connect_navigation(self) -> None:
+        """Connect sidebar buttons to the corresponding pages."""
 
-    self.dashboard_button.clicked.connect(
-        lambda: self.change_page(0)
-    )
-    self.participant_button.clicked.connect(
-        lambda: self.change_page(1)
-    )
-    self.experiment_button.clicked.connect(
-        lambda: self.change_page(2)
-    )
-    self.hardware_button.clicked.connect(
-        lambda: self.change_page(3)
-    )
-    self.recording_button.clicked.connect(
-        lambda: self.change_page(4)
-    )
-    self.results_button.clicked.connect(
-        lambda: self.change_page(5)
-    )
-    self.settings_button.clicked.connect(
-        lambda: self.change_page(6)
-    )
-    self.new_trial_button.clicked.connect(
-        lambda: self.change_page(1)
-    )
+        self.navigation_buttons = [
+            self.dashboard_button,
+            self.participant_button,
+            self.experiment_button,
+            self.hardware_button,
+            self.recording_button,
+            self.results_button,
+            self.settings_button,
+        ]
 
-    self.create_trial_button.clicked.connect(
-        lambda: self.change_page(1)
-    )
+        self.dashboard_button.clicked.connect(lambda: self.change_page(0))
+        self.participant_button.clicked.connect(lambda: self.change_page(1))
+        self.experiment_button.clicked.connect(lambda: self.change_page(2))
+        self.hardware_button.clicked.connect(lambda: self.change_page(3))
+        self.recording_button.clicked.connect(lambda: self.change_page(4))
+        self.results_button.clicked.connect(lambda: self.change_page(5))
+        self.settings_button.clicked.connect(lambda: self.change_page(6))
+        self.new_trial_button.clicked.connect(lambda: self.change_page(1))
 
-def change_page(self, page_index: int) -> None:
-    """Display one page and update the active sidebar button."""
+        self.create_trial_button.clicked.connect(lambda: self.change_page(1))
 
-    self.page_stack.setCurrentIndex(page_index)
+    def change_page(self, page_index: int) -> None:
+        """Display one page and update the active sidebar button."""
 
-    for index, button in enumerate(self.navigation_buttons):
-        button.setChecked(index == page_index)
+        self.page_stack.setCurrentIndex(page_index)
+
+        for index, button in enumerate(self.navigation_buttons):
+            button.setChecked(index == page_index)
