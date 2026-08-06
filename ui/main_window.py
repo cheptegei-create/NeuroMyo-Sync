@@ -158,6 +158,7 @@ self.connect_navigation()
         button = QPushButton(text)
         button.setCursor(Qt.CursorShape.PointingHandCursor)
         button.setCheckable(True)
+        button.setAutoExclusive(True)
         button.setChecked(active)
         button.setMinimumHeight(44)
 
@@ -190,14 +191,18 @@ self.connect_navigation()
         heading_container.addWidget(heading)
         heading_container.addWidget(description)
 
-        new_trial_button = QPushButton("New Trial")
-        new_trial_button.setObjectName("primaryButton")
-        new_trial_button.setCursor(Qt.CursorShape.PointingHandCursor)
-        new_trial_button.setMinimumSize(130, 42)
+        self.new_trial_button = QPushButton("New Trial")
+        self.new_trial_button.setObjectName("primaryButton")
+self.new_trial_button.setCursor(
+    Qt.CursorShape.PointingHandCursor
+)
+self.new_trial_button.setMinimumSize(130, 42)
+
+
 
         header_layout.addLayout(heading_container)
         header_layout.addStretch()
-        header_layout.addWidget(new_trial_button)
+        header_layout.addWidget(self.new_trial_button)
 
         layout.addLayout(header_layout)
 
@@ -338,7 +343,7 @@ self.connect_navigation()
 
         layout.addStretch()
 
-        start_button = QPushButton("Create New Trial")
+        self.create_trial_button = QPushButton("Create New Trial")
         start_button.setObjectName("primaryButton")
         start_button.setCursor(Qt.CursorShape.PointingHandCursor)
         start_button.setMinimumHeight(44)
@@ -624,6 +629,13 @@ def connect_navigation(self) -> None:
     )
     self.settings_button.clicked.connect(
         lambda: self.change_page(6)
+    )
+    self.new_trial_button.clicked.connect(
+        lambda: self.change_page(1)
+    )
+
+    self.create_trial_button.clicked.connect(
+        lambda: self.change_page(1)
     )
 
 def change_page(self, page_index: int) -> None:
