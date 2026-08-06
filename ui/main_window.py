@@ -18,7 +18,6 @@ from PySide6.QtWidgets import (
     QFormLayout
 )
 
-
 class MainWindow(QMainWindow):
     """Main window for the NeuroMyo Sync application."""
 
