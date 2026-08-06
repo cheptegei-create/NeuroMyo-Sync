@@ -590,3 +590,46 @@ def create_placeholder_page(
     layout.addWidget(placeholder, stretch=1)
 
     return page
+
+def connect_navigation(self) -> None:
+    """Connect sidebar buttons to the corresponding pages."""
+
+    self.navigation_buttons = [
+        self.dashboard_button,
+        self.participant_button,
+        self.experiment_button,
+        self.hardware_button,
+        self.recording_button,
+        self.results_button,
+        self.settings_button,
+    ]
+
+    self.dashboard_button.clicked.connect(
+        lambda: self.change_page(0)
+    )
+    self.participant_button.clicked.connect(
+        lambda: self.change_page(1)
+    )
+    self.experiment_button.clicked.connect(
+        lambda: self.change_page(2)
+    )
+    self.hardware_button.clicked.connect(
+        lambda: self.change_page(3)
+    )
+    self.recording_button.clicked.connect(
+        lambda: self.change_page(4)
+    )
+    self.results_button.clicked.connect(
+        lambda: self.change_page(5)
+    )
+    self.settings_button.clicked.connect(
+        lambda: self.change_page(6)
+    )
+
+def change_page(self, page_index: int) -> None:
+    """Display one page and update the active sidebar button."""
+
+    self.page_stack.setCurrentIndex(page_index)
+
+    for index, button in enumerate(self.navigation_buttons):
+        button.setChecked(index == page_index)
