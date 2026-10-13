@@ -10,13 +10,10 @@ from PySide6.QtWidgets import (
     QStackedWidget,
     QVBoxLayout,
     QWidget,
-    QLineEdit,
-    QSpinBox,
-    QDoubleSpinBox,
-    QComboBox,
-    QTextEdit,
-    QFormLayout
 )
+
+from ui.participant_page import ParticipantPage
+
 
 class MainWindow(QMainWindow):
     """Main window for the NeuroMyo Sync application."""
@@ -48,10 +45,7 @@ class MainWindow(QMainWindow):
         self.page_stack = QStackedWidget()
 
         self.dashboard_page = self.create_dashboard()
-        self.participant_page = self.create_placeholder_page(
-            "Participant Information",
-            "Enter and manage participant records.",
-        )
+        self.participant_page = ParticipantPage()
         self.experiment_page = self.create_placeholder_page(
             "Experiment Setup",
             "Configure the study condition, duration, and channel settings.",
