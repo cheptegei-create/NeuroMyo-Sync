@@ -1,3 +1,8 @@
+import json
+from datetime import datetime
+from pathlib import Path
+
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
     QComboBox,
     QDoubleSpinBox,
@@ -16,6 +21,9 @@ from PySide6.QtWidgets import (
 
 
 class ParticipantPage(QWidget):
+
+    participant_saved = Signal(dict)
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.participant_data = None
@@ -157,9 +165,11 @@ class ParticipantPage(QWidget):
         return container
 
     def save_participant(self):
-        """Validate and collect participant information."""
+        """Validate, save, and submit participant information."""
+
         participant_id = self.participant_id.text().strip()
 
+        # Check required field
         if not participant_id:
             QMessageBox.warning(
                 self, "Missing Information", "Please enter a Participant ID."
@@ -167,6 +177,16 @@ class ParticipantPage(QWidget):
             self.participant_id.setFocus()
             return
 
+        # Allow only safe characters in participant IDs
+        if not all(char.isalnum() or char in "-_" for char in participant_id):
+            QMessageBox.warning(
+                self,
+                "Invalid Participant ID",
+                "Use only letters, numbers, hyphens, or underscores.",
+            )
+            return
+
+        # Collect form data
         self.participant_data = {
             "participant_id": participant_id,
             "age": self.age.value() or None,
@@ -175,14 +195,40 @@ class ParticipantPage(QWidget):
             "weight_kg": self.weight.value() or None,
             "dominant_hand": self.dominant_hand.currentText(),
             "dominant_foot": self.dominant_foot.currentText(),
-            "notes": self.notes.toPlainText(),
+            "notes": self.notes.toPlainText().strip(),
+            "created_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         }
 
-        QMessageBox.information(
-            self,
-            "Participant Information",
-            "Participant information validated successfully.",
-        )
+        # Store records in the project's data directory
+        project_root = Path(__file__).resolve().parent.parent
+        participant_dir = project_root / "data" / "participants"
+
+        try:
+            participant_dir.mkdir(parents=True, exist_ok=True)
+
+            file_path = participant_dir / f"{participant_id}.json"
+
+            # Avoid silently overwriting an existing record
+            with file_path.open("x", encoding="utf-8") as file:
+                json.dump(self.participant_data, file, indent=4)
+
+        except FileExistsError:
+            QMessageBox.warning(
+                self,
+                "Participant Already Exists",
+                f"Participant {participant_id} already has a record.\n"
+                "Please use a different ID for now.",
+            )
+            return
+
+        except OSError as error:
+            QMessageBox.critical(
+                self, "Save Error", f"Unable to save participant information:\n{error}"
+            )
+            return
+
+        # Tell MainWindow that saving succeeded
+        self.participant_saved.emit(self.participant_data)
 
     def apply_styles(self):
         self.setStyleSheet("""

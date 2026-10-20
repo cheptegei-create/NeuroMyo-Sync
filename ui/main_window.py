@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
 
         self.dashboard_page = self.create_dashboard()
         self.participant_page = ParticipantPage()
+        self.participant_page.participant_saved.connect(self.on_participant_saved)
         self.experiment_page = self.create_placeholder_page(
             "Experiment Setup",
             "Configure the study condition, duration, and channel settings.",
@@ -611,3 +612,10 @@ class MainWindow(QMainWindow):
 
         for index, button in enumerate(self.navigation_buttons):
             button.setChecked(index == page_index)
+
+    def on_participant_saved(self, participant_data):
+        """Advance to Experiment Setup after participant data is saved."""
+
+        self.current_participant = participant_data
+
+        self.change_page(2)
