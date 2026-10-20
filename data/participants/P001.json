@@ -1,0 +1,11 @@
+{
+    "participant_id": "P001",
+    "age": 25,
+    "sex": "Male",
+    "height_cm": 175.0,
+    "weight_kg": 75.0,
+    "dominant_hand": "Right",
+    "dominant_foot": "Right",
+    "notes": "Initial GUI validation test",
+    "created_at": "2026-10-20T01:03:12-04:00"
+}
