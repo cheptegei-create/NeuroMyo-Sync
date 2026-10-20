@@ -24,7 +24,7 @@ class ParticipantPage(QWidget):
     def build_interface(self):
         # Main page layout
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(28, 28, 28, 28)
+        main_layout.setContentsMargins(20, 20, 20, 20)
         main_layout.setSpacing(20)
 
         # Page heading
@@ -46,7 +46,7 @@ class ParticipantPage(QWidget):
         card.setMaximumWidth(950)
 
         card_layout = QVBoxLayout(card)
-        card_layout.setContentsMargins(28, 28, 28, 28)
+        card_layout.setContentsMargins(20, 20, 20, 20)
         card_layout.setSpacing(20)
 
         section_title = QLabel("Participant Details")
