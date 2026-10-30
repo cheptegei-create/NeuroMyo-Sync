@@ -1,0 +1,17 @@
+{
+    "session_id": "P002_20261030_092823",
+    "participant_id": "P002",
+    "study_id": "STUDY001",
+    "researcher": "Test Researcher",
+    "trial_number": 1,
+    "condition": "Eyes Open",
+    "duration_seconds": 30,
+    "sampling_rate_hz": 250,
+    "channel_configuration": {
+        "eeg": 9,
+        "emg": 3
+    },
+    "recording_mode": "EEG + EMG",
+    "notes": "",
+    "created_at": "2026-10-30T09:29:47-04:00"
+}

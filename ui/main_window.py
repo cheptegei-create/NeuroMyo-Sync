@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from ui.experiment_page import ExperimentPage
 from ui.participant_page import ParticipantPage
 
 
@@ -47,10 +48,8 @@ class MainWindow(QMainWindow):
         self.dashboard_page = self.create_dashboard()
         self.participant_page = ParticipantPage()
         self.participant_page.participant_saved.connect(self.on_participant_saved)
-        self.experiment_page = self.create_placeholder_page(
-            "Experiment Setup",
-            "Configure the study condition, duration, and channel settings.",
-        )
+        self.experiment_page = ExperimentPage()
+        self.experiment_page.experiment_saved.connect(self.on_experiment_saved)
         self.hardware_page = self.create_placeholder_page(
             "Hardware Status",
             "Monitor BLE, ADC, electrodes, battery, and system health.",
@@ -614,8 +613,17 @@ class MainWindow(QMainWindow):
             button.setChecked(index == page_index)
 
     def on_participant_saved(self, participant_data):
-        """Advance to Experiment Setup after participant data is saved."""
+        """Pass participant data to Experiment Setup."""
 
         self.current_participant = participant_data
 
+        self.experiment_page.set_participant(participant_data)
+
         self.change_page(2)
+
+    def on_experiment_saved(self, experiment_data):
+        """Advance to Hardware after experiment setup is saved."""
+
+        self.current_experiment = experiment_data
+
+        self.change_page(3)
