@@ -13,6 +13,7 @@ from PySide6.QtWidgets import (
 )
 
 from ui.experiment_page import ExperimentPage
+from ui.hardware_page import HardwarePage
 from ui.participant_page import ParticipantPage
 
 
@@ -50,10 +51,7 @@ class MainWindow(QMainWindow):
         self.participant_page.participant_saved.connect(self.on_participant_saved)
         self.experiment_page = ExperimentPage()
         self.experiment_page.experiment_saved.connect(self.on_experiment_saved)
-        self.hardware_page = self.create_placeholder_page(
-            "Hardware Status",
-            "Monitor BLE, ADC, electrodes, battery, and system health.",
-        )
+        self.hardware_page = HardwarePage()
         self.acquisition_page = self.create_placeholder_page(
             "Live Acquisition",
             "View and record synchronized EEG and EMG signals.",
